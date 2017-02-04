@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">EvilMemory</string>
+
+    <string name="toast_notifications">Enable Toast Notifications</string>
+    <string name="state_notifications">Enable State Notifications</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="name">User Name</string>
+    <string name="address">Address</string>
+    <string name="snackbar_text">Will you come back?</string>
+    <string name="snackbar_action">yes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

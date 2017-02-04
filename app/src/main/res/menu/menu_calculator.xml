@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/Phone"
+        android:title="Phone"
+        android:icon="@drawable/ic_call_black_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Explorer"
+        android:title="Internet"
+        android:icon="@drawable/ic_explore_black_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/toast"
+        android:title="@string/toast_notifications" />
+    <item
+        android:id="@+id/state"
+        android:title="@string/state_notifications" />
+
+</menu>
