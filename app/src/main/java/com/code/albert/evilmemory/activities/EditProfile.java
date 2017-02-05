@@ -110,14 +110,10 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 startActivityForResult(chooserIntent, 1);
                 break;
             case R.id.fabaddress:
-                //Context context= getApplicationContext();
-                //bService.getGPS(context);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(EditProfile.this, GPSActivity.class));
-                    }
-                }, 10000);
+                Context context= getApplicationContext();
+                bService.getGPS(context);
+                //startActivity(new Intent(EditProfile.this, GPSActivity.class));
+
 
                 break;
         }

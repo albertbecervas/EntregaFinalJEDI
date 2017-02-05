@@ -151,7 +151,7 @@ public class BoundService extends Service {
     OnFragmentInteractionListener mListener;
 
 
-    public void getGPS(Context context) {
+    public void getGPS(final Context context) {
         //startActivity(new Intent (getApplicationContext(), GPSActivity.class));
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -160,7 +160,7 @@ public class BoundService extends Service {
                 Geocoder geocoder = new Geocoder(getApplicationContext());
                 try {
                     addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 3);
-                    //mListener = (OnFragmentInteractionListener) context;
+                    mListener = (OnFragmentInteractionListener) context;
                     mListener.getDirection(addressList);
                 } catch (IOException e) {
                     e.printStackTrace();
