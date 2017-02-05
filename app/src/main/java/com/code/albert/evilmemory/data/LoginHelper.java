@@ -108,17 +108,47 @@ public class LoginHelper extends SQLiteOpenHelper{
     }
 
 
+    public Cursor getRanking4() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {"name", "score4"};
+        Cursor c=db.query(
+                LOGIN_TABLE,
+                columns,
+                "score4>1",
+                null,
+                null,
+                null,
+                "score4 ASC"
+        );
+        return c;
+    }
+
     public Cursor getRanking6() {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {"name", "score6"};
         Cursor c=db.query(
                 LOGIN_TABLE,
                 columns,
-                "score6!=0",
+                "score6>1",
                 null,
                 null,
                 null,
                 "score6 ASC"
+        );
+        return c;
+    }
+
+    public Cursor getRanking8() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {"name", "score8"};
+        Cursor c=db.query(
+                LOGIN_TABLE,
+                columns,
+                "score8>1",
+                null,
+                null,
+                null,
+                "score8 ASC"
         );
         return c;
     }
@@ -136,7 +166,7 @@ public class LoginHelper extends SQLiteOpenHelper{
 
     public void DeleteRanking6(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score6=" + 0);
+        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score6=" + 1);
     }
 
     public void DeleteRanking8(){

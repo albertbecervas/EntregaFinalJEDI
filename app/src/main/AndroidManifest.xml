@@ -5,6 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="de.test.READ_DATABASE" />
+    <uses-permission android:name="de.test.WRITE_DATABASE" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.light"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +39,19 @@
         <activity android:name=".activities.Signin" />
         <activity android:name=".activities.EditProfile" />
         <activity android:name=".activities.GPSActivity" />
-        <activity android:name=".activities.Calculator"></activity>
+        <activity android:name=".activities.Calculator" />
+        <activity android:name=".activities.MediaPlayer" />
+
+        <service
+            android:name=".service.BoundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".activities.Memory4" />
+        <activity android:name=".activities.Memory6" />
+        <activity android:name=".activities.Memory8" />
+        <activity android:name=".activities.Ranking" />
+        <activity android:name=".fragments.Ranking4"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -48,19 +49,20 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     boolean bound = false;
     Intent intent;
 
-    /* private ServiceConnection connection = new ServiceConnection() {
-         @Override
-         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-             BoundService.MyBinder binder = (BoundService.MyBinder) iBinder;
-             bService = binder.getService();
-             bound = true;
-         }
+    private ServiceConnection connection = new ServiceConnection(){
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            BoundService.MyBinder binder = (BoundService.MyBinder) iBinder;
+            bService = binder.getService();
+            bound = true;
+        }
 
-         @Override
-         public void onServiceDisconnected(ComponentName arg0) {
-             bound = false;
-         }
-     };*/
+        @Override
+        public void onServiceDisconnected(ComponentName arg0){
+            bound = false;
+        }
+    };
+
     ButterKnife butterKnife;
     @BindView(R.id.completeuser)
     EditText name;
@@ -78,9 +80,9 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_edit_profile);
         butterKnife.bind(this);
 
-        /*intent = new Intent(EditProfile.this, BoundService.class);
+        intent = new Intent(EditProfile.this, BoundService.class);
 
-        bindService(intent, connection, Context.BIND_ADJUST_WITH_ACTIVITY);*/
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
         sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -108,9 +110,15 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 startActivityForResult(chooserIntent, 1);
                 break;
             case R.id.fabaddress:
-                Context context= getApplicationContext();
-                bService.getGPS(context);
-                //startActivity(new Intent(EditProfile.this, GPSActivity.class));
+                //Context context= getApplicationContext();
+                //bService.getGPS(context);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(EditProfile.this, GPSActivity.class));
+                    }
+                }, 10000);
+
                 break;
         }
     }

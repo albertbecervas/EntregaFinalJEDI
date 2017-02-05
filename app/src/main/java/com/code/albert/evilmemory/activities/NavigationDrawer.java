@@ -1,5 +1,6 @@
 package com.code.albert.evilmemory.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,8 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.code.albert.evilmemory.R;
-import com.code.albert.evilmemory.fragments.Calculator;
+import com.code.albert.evilmemory.fragments.EvilMemory;
 import com.code.albert.evilmemory.fragments.Profile;
+import com.code.albert.evilmemory.fragments.Weather;
 import com.code.albert.evilmemory.interfaces.OnFragmentInteractionListener;
 
 import butterknife.BindView;
@@ -43,7 +46,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     ButterKnife butterKnife;
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    //@BindView(R.id.toolbar) Toolbar toolbar;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
 
@@ -63,11 +66,11 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         //realm
         //Realm.init(this);
 
-        Fragment f = new Profile();
+        /*Fragment f = new EvilMemory();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame_layout_base, f, "FRAGMENt")
-                .commit();
+                .commit();*/
 
 
         layout = findViewById(R.id.drawer_layout);
@@ -90,6 +93,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         TextView hello;
         String username= sharedPreferences.getString("username","human");
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toggle = new ActionBarDrawerToggle(
@@ -124,23 +128,26 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         switch (id){
             case R.id.profile:
                 Fragment f= new Profile();
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,f, "MEMORY_FRAGMENT").commit();
-                finish();
-                break;
-            case R.id.evilMemory:
-                //startActivity(new Intent(getApplicationContext(), EvilMemory.class));
-                break;
-            case R.id.calculator:
-                Fragment c= new Calculator();
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,c, "CALCULATOR_FRAGMENT").commit();
-                finish();
+                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,f, "PROFILE_FRAGMENT").commit();
 
                 break;
+            case R.id.evilMemory:
+                Fragment e= new EvilMemory();
+                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,e, "MEMORY_FRAGMENT").commit();
+                break;
+            case R.id.calculator:
+                startActivity(new Intent(getApplicationContext(), Calculator.class));
+                break;
             case R.id.musicplayer:
-                //startActivity(new Intent(getApplicationContext(),MusicPlayer.class));
+                startActivity(new Intent(getApplicationContext(),MediaPlayer.class));
                 break;
             case R.id.ranking:
-                //startActivity(new Intent(getApplicationContext(),Ranking.class));
+                startActivity(new Intent(getApplicationContext(),Ranking.class));
+                finish();
+                break;
+            case R.id.weather:
+                Fragment w= new Weather();
+                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,w, "MEMORY_FRAGMENT").commit();
                 break;
             case R.id.logout:
                 editor.putBoolean("UserLoggedIn", false);

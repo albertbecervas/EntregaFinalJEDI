@@ -47,7 +47,7 @@ public class BoundService extends Service {
     @Override
     public IBinder onBind(Intent arg0) {
 
-        //mediaPlayer = MediaPlayer.create(this, R.raw.starwars);
+        mediaPlayer = MediaPlayer.create(this, R.raw.madness);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -130,11 +130,11 @@ public class BoundService extends Service {
         try {
             mediaPlayer.stop();
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/madness"));
+            mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/starwars"));
             mediaPlayer.prepare();
             mediaPlayer.start();
             int pos;
-            songURI = Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/madness");
+            songURI = Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/starwars");
             s = songURI.toString();
             s = s.trim();
             pos = s.lastIndexOf("/");
@@ -151,7 +151,7 @@ public class BoundService extends Service {
     OnFragmentInteractionListener mListener;
 
 
-    public void getGPS(final Context context) {
+    public void getGPS(Context context) {
         //startActivity(new Intent (getApplicationContext(), GPSActivity.class));
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -160,7 +160,7 @@ public class BoundService extends Service {
                 Geocoder geocoder = new Geocoder(getApplicationContext());
                 try {
                     addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 3);
-                    mListener = (OnFragmentInteractionListener) context;
+                    //mListener = (OnFragmentInteractionListener) context;
                     mListener.getDirection(addressList);
                 } catch (IOException e) {
                     e.printStackTrace();
