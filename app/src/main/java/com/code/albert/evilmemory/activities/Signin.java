@@ -4,10 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,10 +43,14 @@ public class Signin extends AppCompatActivity {
 
     ButterKnife butterKnife;
 
-    @BindView(R.id.user) EditText name;
-    @BindView(R.id.password) EditText password;
-    @BindView(R.id.completeuser) EditText completename;
-    @BindView(R.id.imageProfile) ImageView profile;
+    @BindView(R.id.user)
+    EditText name;
+    @BindView(R.id.password)
+    EditText password;
+    @BindView(R.id.completeuser)
+    EditText completename;
+    @BindView(R.id.imageProfile)
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,46 +68,51 @@ public class Signin extends AppCompatActivity {
         loginHelper = new LoginHelper(getApplicationContext());
     }
 
-    public void startAnimation(){
+    public void startAnimation() {
         container = (LinearLayout) findViewById(R.id.activity_login);
-        anim= (AnimationDrawable) container.getBackground();
+        anim = (AnimationDrawable) container.getBackground();
         anim.setEnterFadeDuration(1000);
         anim.setExitFadeDuration(2000);
         anim.start();
     }
 
-
     public void Signin(View v) {
-        if (name.length() > 5 && password.length() > 5 && completename.length() > 5) {
+        Cursor cursor = loginHelper.getUserName(String.valueOf(name.getText().toString()));
+
+        if (name.length() > 3 && password.length() > 5 && completename.length() > 2) {
             if (!Robot) {
-                ContentValues valuesToStore = new ContentValues();
-                valuesToStore.put("name", String.valueOf(name.getText()));
+                if (!cursor.moveToFirst()){
 
-                valuesToStore.put("password", String.valueOf(password.getText()));
-                valuesToStore.put("completename", String.valueOf(completename.getText()));
+                        ContentValues valuesToStore = new ContentValues();
+                        valuesToStore.put("name", String.valueOf(name.getText()));
 
-                editor.putBoolean("UserLoggedIn", true);
-                editor.putString("username", name.getText().toString());
-                editor.apply();
+                        valuesToStore.put("password", String.valueOf(password.getText()));
+                        valuesToStore.put("completename", String.valueOf(completename.getText()));
 
-                loginHelper.createUser(valuesToStore, "Users");
+                        editor.putBoolean("UserLoggedIn", true);
+                        editor.putBoolean("keepin", true);
+                        editor.putString("username", name.getText().toString());
+                        editor.apply();
 
-                Toast.makeText(getApplicationContext(), "Welcome " + name.getText(), Toast.LENGTH_LONG).show();
-                name.setText("");
-                password.setText("");
+                        loginHelper.createUser(valuesToStore, "Users");
 
-                Intent intent = new Intent(getApplicationContext(), NavigationDrawer.class);
-                startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Welcome " + name.getText(), Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getApplicationContext(), EvilMemory.class);
+                        startActivity(intent);
+                        this.finish();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Entered user already exists!!", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "get the fuck out MrRobot!", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            if (name.length() < 5) name.setError("5 characters at least!");
-            if (password.length() < 5) password.setError("5 characters at least!");
-            if (completename.length() < 5) completename.setError("5 characters at least!");
+        } else{
+            name.setError("5 characters at least!");
+            password.setError("5 characters at least!");
+            completename.setError("5 characters at least!");
         }
     }
-
 
     @OnClick(R.id.mrrobot)
     public void checkKeep(CheckBox checkKeep) {
@@ -116,14 +125,9 @@ public class Signin extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void profile_picture() {
-        //Intent changeImage = new Intent(Intent.ACTION_GET_CONTENT, null);
-        //changeImage.setType("image/*");
-
-        //Este Intent define para el ACTION_PICK, la URI de donde cogerá los datos
         Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
 
-        //Usamos el Intent anterior para filtrar únicamente los que queremos que usen
         Intent chooserIntent = Intent.createChooser(pickIntent, "Select Image");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
         chooserIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -137,14 +141,8 @@ public class Signin extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                //data.getData();
                 selectedImage = data.getData();
-                /*final int takeFlags = data.getFlags()
-                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                // Check for the freshest data.
-                //Signin.grantUriPermission(getCallingActivity().getPackageName(), selectedImage, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                getApplicationContext().getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);*/
+
                 String s = selectedImage.toString();
                 Log.d("uri", "onActivityResult: " + s);
                 editor.putString("s", s);
@@ -159,8 +157,4 @@ public class Signin extends AppCompatActivity {
             Log.v("Result", "Something happened");
         }
     }
-
 }
-
-
-//TODO añadir permisos persistentes para coger las imágenes

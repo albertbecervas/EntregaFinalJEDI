@@ -1,6 +1,7 @@
 package com.code.albert.evilmemory.fragments;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class Weather extends Fragment {
     WeatherService service = retrofit.create(WeatherService.class);
 
     String result;
+    float res=0,press=0;
 
     public Weather() {
         // Required empty public constructor
@@ -62,10 +64,23 @@ public class Weather extends Fragment {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 if(response.isSuccessful()){
-                    WeatherResponse weatherResponse = response.body();
-                    result = weatherResponse.getWeathermain();
                     TextView t= (TextView) getActivity().findViewById(R.id.temp);
+                    ImageView w=(ImageView) getActivity().findViewById(R.id.weather);
+                    WeatherResponse weatherResponse = response.body();
+                    result=weatherResponse.getWeather();
+                    String icon="ic_"+result;
+                    int id= getResources().getIdentifier(icon,"drawable",getActivity().getPackageName());
+                    w.setImageResource(id);
+
+
                     t.setText(result);
+                    /*result = weatherResponse.getWeathermain();
+                    res= Float.parseFloat(result);
+                    result= weatherResponse.getPressure();
+                    press= Float.parseFloat(result);*/
+                    //int rs=((int) res);
+
+                    //t.setText(""+(rs-272)+"ºC"+ "\n" + press);
                     Toast.makeText(getActivity().getApplicationContext(),result,Toast.LENGTH_LONG).show();
 
                 }else{

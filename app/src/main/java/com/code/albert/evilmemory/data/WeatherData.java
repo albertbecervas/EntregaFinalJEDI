@@ -6,9 +6,11 @@ package com.code.albert.evilmemory.data;
 public class WeatherData {
     String main;
     String description;
+    String icon;
+
 
     @Override
     public String toString() {
-        return main + "\n" + description;
+        return icon;
     }
 }

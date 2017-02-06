@@ -18,8 +18,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ import butterknife.OnClick;
 
 public class EditProfile extends AppCompatActivity implements View.OnClickListener, OnFragmentInteractionListener {
 
+    Context context=this;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -48,6 +52,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     BoundService bService;
     boolean bound = false;
     Intent intent;
+    Boolean GPSon=false;
 
     private ServiceConnection connection = new ServiceConnection(){
         @Override
@@ -88,7 +93,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         editor = sharedPreferences.edit();
 
         loginHelper = new LoginHelper(getApplicationContext());
-
     }
 
     @OnClick({R.id.modify, R.id.fab, R.id.fabaddress})
@@ -110,14 +114,25 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                 startActivityForResult(chooserIntent, 1);
                 break;
             case R.id.fabaddress:
-                Context context= getApplicationContext();
+                if(GPSon){
                 bService.getGPS(context);
-                //startActivity(new Intent(EditProfile.this, GPSActivity.class));
-
-
+                }else{
+                    Toast.makeText(getApplicationContext(),"Please, turn on GPS",Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }
+
+    @OnClick(R.id.switch1)
+    public void switcher(Switch onoff) {
+        if (onoff.isChecked()) {
+            GPSon=true;
+            Toast.makeText(getApplicationContext(), "GPS on", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "GPS off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     public void saveChanges() {

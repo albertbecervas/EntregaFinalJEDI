@@ -1,11 +1,13 @@
 package com.code.albert.evilmemory.activities;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,6 @@ import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
 
 public class Login extends AppCompatActivity{
-
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "MY7esAS3XVDRZ7QDiONPfuCyS";
     private static final String TWITTER_SECRET = "8eOF4WHY9pyXuP0coZIMyrvhkpEtvNQL3pLD4JYqC1eyn5vGHU";
@@ -65,18 +66,33 @@ public class Login extends AppCompatActivity{
 
         startAnimation();
 
+        settings= getSharedPreferences("myApp", Context.MODE_PRIVATE);
+        checkLogin();
+        editor= settings.edit();
+
         loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
 
             @Override
             public void success(Result<TwitterSession> result) {
-                // The TwitterSession is also available through:
-                // Twitter.getInstance().core.getSessionManager().getActiveSession()
+
                 TwitterSession session = result.data;
-                // TODO: Remove toast and use the TwitterSession's userID
-                // with your app's user model
-                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
-                startActivity(new Intent(getApplicationContext(),NavigationDrawer.class));
+                String name= session.getUserName();
+
+                Log.d("username", "success: "+session.getUserName());
+                String username = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
+                ContentValues valuesToStore = new ContentValues();
+                valuesToStore.put("name", String.valueOf(session.getUserName()));
+                valuesToStore.put("password", String.valueOf("changepass"));
+                valuesToStore.put("completename", String.valueOf(session.getUserName()));
+
+                editor.putBoolean("UserLoggedIn", true);
+                editor.putBoolean("keepin",true);
+                editor.putString("username", session.getUserName());
+                editor.apply();
+
+                loginHelper.createUser(valuesToStore, "Users");
+                startActivity(new Intent(getApplicationContext(),EvilMemory.class));
             }
             @Override
             public void failure(TwitterException exception) {
@@ -85,17 +101,12 @@ public class Login extends AppCompatActivity{
         });
 
 
-        //Para consultar Shared Preferences
-        settings= getSharedPreferences("myApp", Context.MODE_PRIVATE);
-        checkLogin();
-        editor= settings.edit();
 
         loginHelper = new LoginHelper(getApplicationContext());
         name = (EditText)findViewById(R.id.user);
         password =  (EditText) findViewById(R.id.password);
 
         fails=0;
-
     }
 
     public void startAnimation(){
@@ -112,13 +123,12 @@ public class Login extends AppCompatActivity{
         loginButton.onActivityResult(requestCode, resultCode, data);
     }
 
-
     public void checkLogin(){
         UserLoggedIn = settings.getBoolean("UserLoggedIn", false);
         StateIn = settings.getBoolean("keepin", false);
 
         if(UserLoggedIn && StateIn){
-            Intent intent = new Intent(this,NavigationDrawer.class);
+            Intent intent = new Intent(this, EvilMemory.class);
             startActivity(intent);
             finish();
         }
@@ -148,14 +158,13 @@ public class Login extends AppCompatActivity{
                 editor.putBoolean("UserLoggedIn", true);
                 editor.putString("username",name.getText().toString());
                 editor.apply();
-                Intent intent = new Intent(getApplicationContext(), NavigationDrawer.class);
+                Intent intent = new Intent(getApplicationContext(), EvilMemory.class);
                 startActivity(intent);
                 finish();
             }else{
 
                 ImageView image = new ImageView(this);
                 image.setImageResource(R.mipmap.ic_intruso);
-                image.setMinimumHeight(50);
 
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(this).
@@ -177,8 +186,8 @@ public class Login extends AppCompatActivity{
 
         Intent intent = new Intent(getApplicationContext(), Signin.class);
         startActivity(intent);
+        finish();
     }
-
 
     @OnClick(R.id.checkBox)
     public void checkKeep(CheckBox checkKeep){

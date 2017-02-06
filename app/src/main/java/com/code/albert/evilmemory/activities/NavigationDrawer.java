@@ -1,9 +1,9 @@
 package com.code.albert.evilmemory.activities;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,22 +13,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.code.albert.evilmemory.R;
-import com.code.albert.evilmemory.fragments.EvilMemory;
 import com.code.albert.evilmemory.fragments.Profile;
 import com.code.albert.evilmemory.fragments.Weather;
-import com.code.albert.evilmemory.interfaces.OnFragmentInteractionListener;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -44,48 +37,18 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     View layout;
 
-    ButterKnife butterKnife;
-
-    //@BindView(R.id.toolbar) Toolbar toolbar;
-
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-
-    @BindView(R.id.nav_view) NavigationView navigationView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //super.setContentView(R.layout.nav_header_base);
         super.setContentView(R.layout.activity_navigation_drawer);
-        butterKnife.bind(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
         editor = getSharedPreferences("myApp", 0).edit();
 
-        //realm
-        //Realm.init(this);
-
-        /*Fragment f = new EvilMemory();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_layout_base, f, "FRAGMENt")
-                .commit();*/
-
-
         layout = findViewById(R.id.drawer_layout);
 
         setView();
-
-
-    }
-
-    public void startAnimation(){
-        container = (FrameLayout) findViewById(R.id.fragment_background);
-        anim= (AnimationDrawable) container.getBackground();
-        anim.setEnterFadeDuration(1000);
-        anim.setExitFadeDuration(2000);
-        anim.start();
     }
 
     protected void setView() {
@@ -96,11 +59,13 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         profile = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
@@ -115,25 +80,19 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         hello = (TextView) navigationView.getHeaderView(0).findViewById(R.id.hello);
         hello.setText("Hi " + username + "!");
-
     }
-
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id){
             case R.id.profile:
                 Fragment f= new Profile();
                 getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,f, "PROFILE_FRAGMENT").commit();
-
                 break;
             case R.id.evilMemory:
-                Fragment e= new EvilMemory();
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,e, "MEMORY_FRAGMENT").commit();
+                startActivity(new Intent(getApplicationContext(),EvilMemory.class));
                 break;
             case R.id.calculator:
                 startActivity(new Intent(getApplicationContext(), Calculator.class));
@@ -143,7 +102,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.ranking:
                 startActivity(new Intent(getApplicationContext(),Ranking.class));
-                finish();
                 break;
             case R.id.weather:
                 Fragment w= new Weather();

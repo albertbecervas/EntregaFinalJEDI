@@ -15,23 +15,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.code.albert.evilmemory.R;
+import com.code.albert.evilmemory.activities.other.ImgActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class Calculator extends AppCompatActivity {
+public class Calculator extends NavigationDrawer {
 
     TextView operands, result;
 
     int x,a,b,res;
 
     String symbol;
-
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -42,14 +43,13 @@ public class Calculator extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
-
         butterKnife.bind(this);
 
         operands = (TextView) findViewById(R.id.operands);
         result = (TextView) findViewById(R.id.result);
 
         sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
-        editor = getSharedPreferences("myApp", 0).edit();
+        editor = sharedPreferences.edit();
     }
 
     @Override
@@ -57,7 +57,6 @@ public class Calculator extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("operand", operands.getText().toString());
         outState.putString("result", result.getText().toString());
-
     }
 
     @Override
@@ -165,13 +164,13 @@ public class Calculator extends AppCompatActivity {
                                 notificationManager.notify(1,builder.build());
 
 
-                                //Intent resultIntent = new Intent(getActivity().getApplicationContext(), Troll.class);
+                                Intent resultIntent = new Intent(getApplicationContext(), ImgActivity.class);
 
                                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
                                 // Añade la pila para el Intent,pero no el intent en sí
-                                //stackBuilder.addParentStack(Troll.class);
+                                stackBuilder.addParentStack(ImgActivity.class);
                                 // Añadimos el intent que empieza la activity que está en el top de la pila
-                                //stackBuilder.addNextIntent(resultIntent);
+                                stackBuilder.addNextIntent(resultIntent);
 
                                 //El pending intent será el que se ejecute cuando la notificación sea pulsada
                                 PendingIntent resultPendingIntent =
@@ -194,6 +193,7 @@ public class Calculator extends AppCompatActivity {
                         }
                         break;
                 }
+                operands.setText(a + symbol + b);
                 result.setText(String.valueOf(res));
                 break;
             case R.id.button_coma:
@@ -231,9 +231,17 @@ public class Calculator extends AppCompatActivity {
                 break;
 
         }
-
         operands.setText(String.valueOf(x));
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.finish();
     }
 }

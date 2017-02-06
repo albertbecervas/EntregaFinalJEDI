@@ -34,13 +34,19 @@
             android:name="io.fabric.ApiKey"
             android:value="b024038b5dc0c3ccf0dc96a3fc6abbaef2f7dca2" />
 
-        <activity android:name=".activities.NavigationDrawer" />
-        <activity android:name=".activities.other.ImgActivity" />
-        <activity android:name=".activities.Signin" />
+        <activity android:name=".activities.NavigationDrawer"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.other.ImgActivity"
+            android:noHistory="true"/>
+        <activity
+            android:name=".activities.Signin"
+            android:noHistory="true" />
         <activity android:name=".activities.EditProfile" />
         <activity android:name=".activities.GPSActivity" />
-        <activity android:name=".activities.Calculator" />
-        <activity android:name=".activities.MediaPlayer" />
+        <activity android:name=".activities.Calculator"
+            android:noHistory="true"/>
+        <activity android:name=".activities.MediaPlayer"
+            android:noHistory="true"/>
 
         <service
             android:name=".service.BoundService"
@@ -50,8 +56,11 @@
         <activity android:name=".activities.Memory4" />
         <activity android:name=".activities.Memory6" />
         <activity android:name=".activities.Memory8" />
-        <activity android:name=".activities.Ranking" />
-        <activity android:name=".fragments.Ranking4"></activity>
+        <activity android:name=".activities.Ranking"
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.EvilMemory"
+            android:noHistory="true"></activity>
     </application>
 
 </manifest>

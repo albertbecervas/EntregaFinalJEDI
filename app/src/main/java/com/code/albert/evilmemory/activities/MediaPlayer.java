@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.code.albert.evilmemory.R;
 import com.code.albert.evilmemory.service.BoundService;
 
-public class MediaPlayer extends AppCompatActivity {
+public class MediaPlayer extends NavigationDrawer {
 
     ImageView play, stop, next, previous;
     Button selectSong;
@@ -190,11 +190,16 @@ public class MediaPlayer extends AppCompatActivity {
 
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         bService.on_destroy();
+        this.finish();
 
     }
 

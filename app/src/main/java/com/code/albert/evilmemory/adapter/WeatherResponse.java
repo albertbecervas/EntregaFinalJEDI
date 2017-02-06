@@ -20,8 +20,13 @@ public class WeatherResponse {
     @SerializedName("main") WeatherMainData weathermain;
 
     public String getWeathermain() {
-        Log.d("weather", "getWeathermain: "+weathermain.toString());
-        return weathermain.toString();
+        String temp=weathermain.getTemp().toString();
+        return temp;
+    }
+
+    public String getPressure(){
+        String pres=weathermain.getPressure().toString();
+        return pres;
     }
 
     public Double getLat() {
@@ -60,4 +65,5 @@ public class WeatherResponse {
     public String getWeather() {
         return weathers.get(0).toString();
     }
+
 }
