@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -81,13 +82,18 @@ public class GPSActivity extends AppCompatActivity {
 
 
         super.onPause();
-     //   locationManager.removeGpsStatusListener((GpsStatus.Listener) locationListener);
+        locationManager.removeGpsStatusListener((GpsStatus.Listener) locationListener);
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
 

@@ -28,7 +28,7 @@ public class Ranking extends NavigationDrawer{
         bottomNavigationItemView.getMenu().getItem(0).setChecked(true);
 
         //Load fragment for first time
-        Fragment f = new Ranking6();
+        Fragment f = new Ranking4();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.ranking_container, f, "FRAGMENt")
@@ -42,7 +42,6 @@ public class Ranking extends NavigationDrawer{
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.rank4:
-                                Toast.makeText(getApplicationContext(),"4",Toast.LENGTH_SHORT).show();
                                 Fragment f = new Ranking4();
                                 getSupportFragmentManager()
                                         .beginTransaction()
@@ -50,7 +49,6 @@ public class Ranking extends NavigationDrawer{
                                         .commit();
                                 break;
                             case R.id.rank6:
-                                Toast.makeText(getApplicationContext(),"6",Toast.LENGTH_SHORT).show();
                                 Fragment f2 = new Ranking6();
                                 getSupportFragmentManager()
                                         .beginTransaction()
@@ -58,7 +56,6 @@ public class Ranking extends NavigationDrawer{
                                         .commit();
                                 break;
                             case R.id.rank8:
-                                Toast.makeText(getApplicationContext(),"8",Toast.LENGTH_SHORT).show();
                                 Fragment f3 = new Ranking8();
                                 getSupportFragmentManager()
                                         .beginTransaction()

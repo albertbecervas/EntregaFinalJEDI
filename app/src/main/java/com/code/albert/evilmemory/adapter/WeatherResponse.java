@@ -18,6 +18,7 @@ public class WeatherResponse {
     CoordData coord;
     @SerializedName("weather") List<WeatherData> weathers;
     @SerializedName("main") WeatherMainData weathermain;
+    @SerializedName("name") String nam;
 
     public String getWeathermain() {
         String temp=weathermain.getTemp().toString();
@@ -29,7 +30,26 @@ public class WeatherResponse {
         return pres;
     }
 
-    public Double getLat() {
+    public String getHumidity(){
+        String hum=weathermain.getHumidity().toString();
+        return hum;
+    }
+
+    public String getTempMin(){
+        String mintemp=weathermain.getTemp_min().toString();
+        return mintemp;
+    }
+
+    public String getTempMax(){
+        String maxtemp=weathermain.getTemp_max().toString();
+        return maxtemp;
+    }
+
+    public String getNam(){
+        return nam;
+    }
+
+   /* public Double getLat() {
         return coord.getLat();
     }
 
@@ -60,7 +80,7 @@ public class WeatherResponse {
 
     public void setS(String s) {
         this.s = s;
-    }
+    }*/
 
     public String getWeather() {
         return weathers.get(0).toString();

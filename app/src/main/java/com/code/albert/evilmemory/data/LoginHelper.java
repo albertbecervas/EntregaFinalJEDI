@@ -232,19 +232,29 @@ public class LoginHelper extends SQLiteOpenHelper{
     }
 
 
+    public boolean clearRankingByLevel(String level) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] where = {level};
+        return db.delete(
+                LOGIN_TABLE,
+                "level=?",
+                where) > 0;
+    }
+
     public void DeleteRanking4(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " + LOGIN_TABLE +" SET score4=" + 1);
+        db.execSQL("UPDATE " + LOGIN_TABLE +" SET score4=" + 0);
+
         }
 
     public void DeleteRanking6(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score6=" + 1);
+        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score6=" + 0);
     }
 
     public void DeleteRanking8(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score8=" + 1);
+        db.execSQL("UPDATE " +LOGIN_TABLE +" SET score8=" + 0);
     }
 
 

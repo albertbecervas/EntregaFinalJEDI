@@ -36,12 +36,18 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
         switch (iconLayout){
             case 0:
                 //male
-                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_angel));
+                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_star_black_24px));
                 break;
             case 1:
                 //female
-                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_evil));
+                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_star_half_black_24px));
                 break;
+            case 2:
+                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_star_border_black_24px));
+                break;
+            default:
+                adapterViewholder.icon.setImageDrawable(adapterViewholder.v.getResources().getDrawable(R.drawable.ic_thumb_down_black_24px));
+
         }
         adapterViewholder.name.setText(rankingPlayers.get(position).getName());
         adapterViewholder.score.setText(""+rankingPlayers.get(position).getScore());
