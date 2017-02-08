@@ -84,7 +84,7 @@ public class Calculator extends NavigationDrawer {
                 return true;
             case R.id.Explorer:
                 Intent internet = new Intent(Intent.ACTION_VIEW);
-                internet.setData(Uri.parse("https://sites.google.com/jediupc.com/andqt2017tardes"));
+                internet.setData(Uri.parse("https://www.wolframalpha.com"));
                 startActivity(internet);
                 return true;
             case R.id.toast:

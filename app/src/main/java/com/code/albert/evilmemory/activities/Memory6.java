@@ -35,6 +35,8 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
 
     LoginHelper loginHelper;
 
+    ImageView reload;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -130,6 +132,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         iv[33] = (ImageView) findViewById(R.id.imageView43);
         iv[34] = (ImageView) findViewById(R.id.imageView44);
         iv[35] = (ImageView) findViewById(R.id.imageView45);
+        reload=(ImageView) findViewById(R.id.reload);
 
         iv[0] .setOnClickListener(this);
         iv[1] .setOnClickListener(this);
@@ -167,6 +170,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         iv[33].setOnClickListener(this);
         iv[34].setOnClickListener(this);
         iv[35].setOnClickListener(this);
+        reload.setOnClickListener(this);
     }
 
     public void setCards() {
@@ -519,7 +523,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
                 action(view,35);
                 break;
 
-            case R.id.refresh:
+            case R.id.reload:
                 reload(iv);
                 break;
 
