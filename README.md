@@ -16,7 +16,7 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
     -En la pestaña de estiar perfil podremos seleccionar una imágen de perfil, seleccionar la localización mediante el uso del GPS,
      y cambiar credenciales como el nombre o la contraseña.
     -También se muestra un botón en rojo para salir de la cuenta.
-    
+    -La funcionalidad de mostrar la foto esta comentada por motivos de compatibilidad.
   -Ranking:
     -Se mostrará la mejor puntuación de cada usuario que haya participado en el juego memory y se dividirá también en los tres niveles del memory
   
