@@ -47,7 +47,7 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
      a la aplicación.
      
    IMPORTANTE: según la versión de android, hay funcionalidades como la cámara que pueden no funcionar debido a un problema de permisos.
-              La versión que mejor funciona es la 6.0.1.
-              
-              
+              La versión que mejor funciona es la 6.0.1. La solución en caso de que se detenga la aplicación será reinstalar.
+              
+             
  Agradecer el conocimiento impartido a Joan barroso y Marcos Pérez. 
