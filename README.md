@@ -48,7 +48,8 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
      
    IMPORTANTE: según la versión de android, hay funcionalidades como la cámara que pueden no funcionar debido a un problema de permisos.
               La versión que mejor funciona es la 6.0.1. La solución en caso de que se detenga la aplicación será reinstalar.
-              
+              El apartado del tiempo tiene un problema con la versión citada anteriormente(6.0.1) y deberá ejectuarse con la versión 5.1.1
+              Disculpad las molestias
              
              
    
