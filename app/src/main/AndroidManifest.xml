@@ -14,39 +14,51 @@
         android:name="android.hardware.sensor.light"
         android:required="true" />
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.Login"
-            android:screenOrientation="portrait">
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.Login"
+            android:screenOrientation="portrait">
+        </activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b024038b5dc0c3ccf0dc96a3fc6abbaef2f7dca2" />
 
-        <activity android:name=".activities.NavigationDrawer"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.other.ImgActivity"
-            android:noHistory="true"/>
+        <activity android:name=".activities.NavigationDrawer" />
+        <activity
+            android:name=".activities.other.ImgActivity"
+            android:noHistory="true" />
         <activity
             android:name=".activities.Signin"
-            android:noHistory="true" />
-        <activity android:name=".activities.EditProfile" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditProfile"
+            android:label="Edit profile" />
         <activity android:name=".activities.GPSActivity" />
-        <activity android:name=".activities.Calculator"
-            android:noHistory="true"/>
-        <activity android:name=".activities.MediaPlayer"
-            android:noHistory="true"/>
+        <activity
+            android:name=".activities.Calculator"
+            android:label="Calculator"
+            android:noHistory="true" />
+        <activity
+            android:name=".activities.MediaPlayer"
+            android:label="Media player"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.BoundService"
@@ -56,11 +68,14 @@
         <activity android:name=".activities.Memory4" />
         <activity android:name=".activities.Memory6" />
         <activity android:name=".activities.Memory8" />
-        <activity android:name=".activities.Ranking"
+        <activity
+            android:name=".activities.Ranking"
+            android:label="Ranking"
             android:noHistory="true"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.EvilMemory"
-            android:noHistory="true"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.EvilMemory" />
+        <activity android:name=".activities.PagerHolderActivity" />
+
     </application>
 
 </manifest>

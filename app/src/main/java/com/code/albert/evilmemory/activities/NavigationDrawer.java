@@ -32,9 +32,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
     ImageView profile;
 
-    FrameLayout container;
-    AnimationDrawable anim;
-
     View layout;
 
     @Override
@@ -104,8 +101,7 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(getApplicationContext(),Ranking.class));
                 break;
             case R.id.weather:
-                Fragment w= new Weather();
-                getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_base,w, "MEMORY_FRAGMENT").commit();
+                startActivity(new Intent(getApplicationContext(),PagerHolderActivity.class));
                 break;
             case R.id.logout:
                 editor.putBoolean("UserLoggedIn", false);

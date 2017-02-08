@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.code.albert.evilmemory.activities.Ranking">
+    tools:context="com.code.albert.evilmemory.activities.Ranking"
+    android:background="@drawable/animation_list_2">
 
 
     <LinearLayout

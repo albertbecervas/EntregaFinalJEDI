@@ -2,6 +2,8 @@ package com.code.albert.evilmemory.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.code.albert.evilmemory.activities.Ranking;
 import com.code.albert.evilmemory.adapter.MyCustomAdapter;
 import com.code.albert.evilmemory.adapter.RankingPlayer;
 import com.code.albert.evilmemory.data.LoginHelper;
@@ -22,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Ranking6 extends Fragment {
+public class Ranking6 extends Fragment implements  View.OnClickListener{
 
 
     Button delete;
@@ -35,6 +39,9 @@ public class Ranking6 extends Fragment {
     MyCustomAdapter myAdapter;
 
     LoginHelper loginHelper;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public Ranking6() {
         // Required empty public constructor
@@ -62,29 +69,12 @@ public class Ranking6 extends Fragment {
         }
 
         delete=(Button) view.findViewById(R.id.button);
+        delete.setOnClickListener(this);
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginHelper LoginHelper = new LoginHelper(getActivity().getApplicationContext());
-                LoginHelper.DeleteRanking6();
-                Cursor cursor = loginHelper.getRanking6();
-                RankingPlayer pos;
-                if (cursor.moveToFirst()) {
-                    do {
-                        String u = cursor.getString(cursor.getColumnIndex("name"));
-                        int p = cursor.getInt(cursor.getColumnIndex("score6"));
-                        pos = new RankingPlayer(0, u, p);
-                        rankingPlayers.add(pos);
-                    } while (cursor.moveToNext());
-                }
-
-                myAdapter.setData(rankingPlayers);
-                myAdapter.notifyDataSetChanged();
-
-            }
-
-        });
+        sharedPreferences = getActivity().getSharedPreferences("myApp", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("activity",6);
+        editor.apply();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.mRecyclerView);
 
@@ -97,6 +87,39 @@ public class Ranking6 extends Fragment {
         mRecyclerView.setAdapter(myAdapter);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.button) {
+            LoginHelper LoginHelper = new LoginHelper(getActivity().getApplicationContext());
+            LoginHelper.DeleteRanking6();
+            Cursor cursor = loginHelper.getRanking6();
+            RankingPlayer pos;
+            if (cursor.moveToFirst()) {
+                do {
+                    String u = cursor.getString(cursor.getColumnIndex("name"));
+                    int p = cursor.getInt(cursor.getColumnIndex("score4"));
+                    pos = new RankingPlayer(0, u, p);
+                    rankingPlayers.add(pos);
+                } while (cursor.moveToNext());
+            }
+
+            myAdapter.setData(rankingPlayers);
+            myAdapter.notifyDataSetChanged();
+
+            /*FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.detach(this);
+            ft.attach(this);
+            ft.commit();*/
+
+            startActivity(new Intent(getActivity().getApplicationContext(), Ranking.class));
+            getActivity().finish();
+
+
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "nbgfxn", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,10 +51,15 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
 
     View view0, view1;
 
+    ProgressBar progressbar;
+
     ButterKnife butterKnife;
 
     @BindDrawable(R.drawable.ic_fast_forward_black_24dp) Drawable backside;
     @BindView(R.id.intents) TextView attempts;
+
+    int setLevel,max;
+
 
 
     @Override
@@ -68,12 +74,26 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
 
         sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        Boolean premium=sharedPreferences.getBoolean("Premium package", false);
+        setLevel=sharedPreferences.getInt("Level", 1);
+        if(setLevel==1) max=80;
+        if(setLevel==2) max=70;
+        if(setLevel==3) max=60;
 
-        setCards();
+        progressbar = (ProgressBar) findViewById(R.id.progressBarIntents);
+        progressbar.setMax(60);
+        progressbar.setProgress(intents);
+
+        setImagesView();
+
+        if(!premium) {
+            setCards();
+        }else{
+            setPremiumCards();
+        }
     }
 
-    public void setCards() {
-
+    public void setImagesView(){
         iv[0]  = (ImageView) findViewById(R.id.imageView0);
         iv[1]  = (ImageView) findViewById(R.id.imageView1);
         iv[2]  = (ImageView) findViewById(R.id.imageView2);
@@ -147,45 +167,48 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         iv[33].setOnClickListener(this);
         iv[34].setOnClickListener(this);
         iv[35].setOnClickListener(this);
+    }
 
-        drawables[0] = R.drawable.ic_twitter;
-        drawables[1] = R.drawable.ic_evil;
-        drawables[2] = R.drawable.ic_angel_and_demon_;
-        drawables[3] = R.drawable.ic_call_black_24dp;
-        drawables[4] = R.drawable.ic_camera_enhance_black_24dp;
-        drawables[5] = R.drawable.ic_dialpad_black_24dp;
-        drawables[6] = R.drawable.ic_exit_to_app_black_24dp;
-        drawables[7] = R.drawable.ic_explore_black_24dp;
-        drawables[8] = R.drawable.ic_angel;
-        drawables[9] = R.drawable.ic_evil;
-        drawables[10] = R.drawable.ic_angel_and_demon_;
-        drawables[11] = R.drawable.ic_call_black_24dp;
-        drawables[12] = R.drawable.ic_camera_enhance_black_24dp;
-        drawables[13] = R.drawable.ic_dialpad_black_24dp;
-        drawables[14] = R.drawable.ic_exit_to_app_black_24dp;
-        drawables[15] = R.drawable.ic_explore_black_24dp;
-        drawables[16] = R.drawable.ic_angel;
-        drawables[17] = R.drawable.ic_evil;
-        drawables[18] = R.drawable.ic_angel_and_demon_;
-        drawables[19] = R.drawable.ic_call_black_24dp;
-        drawables[20] = R.drawable.ic_camera_enhance_black_24dp;
-        drawables[21] = R.drawable.ic_dialpad_black_24dp;
-        drawables[22] = R.drawable.ic_exit_to_app_black_24dp;
-        drawables[23] = R.drawable.ic_explore_black_24dp;
-        drawables[24] = R.drawable.ic_angel;
-        drawables[25] = R.drawable.ic_evil;
-        drawables[26] = R.drawable.ic_angel_and_demon_;
-        drawables[27] = R.drawable.ic_call_black_24dp;
-        drawables[28] = R.drawable.ic_camera_enhance_black_24dp;
-        drawables[29] = R.drawable.ic_dialpad_black_24dp;
-        drawables[30] = R.drawable.ic_exit_to_app_black_24dp;
-        drawables[31] = R.drawable.ic_explore_black_24dp;
-        drawables[32] = R.drawable.ic_explore_black_24dp;
-        drawables[33] = R.drawable.ic_explore_black_24dp;
-        drawables[34] = R.drawable.ic_explore_black_24dp;
-        drawables[35] = R.drawable.ic_explore_black_24dp;
+    public void setCards() {
 
-        shuffle();
+        drawables[0] = R.drawable.ic_android;
+        drawables[1] = R.drawable.ic_instagram;
+        drawables[2] = R.drawable.ic_facebook;
+        drawables[3] = R.drawable.ic_skype;
+        drawables[4] = R.drawable.ic_snapchat;
+        drawables[5] = R.drawable.ic_telegram;
+        drawables[6] = R.drawable.ic_github;
+        drawables[7] = R.drawable.ic_flickr;
+        drawables[8] = R.drawable.ic_linkedin;
+        drawables[9] = R.drawable.ic_twitter;
+        drawables[10] = R.drawable.ic_amazon;
+        drawables[11] = R.drawable.ic_drive;
+        drawables[12] = R.drawable.ic_evernote;
+        drawables[13] = R.drawable.ic_google_hangouts_logo;
+        drawables[14] = R.drawable.ic_lastfm;
+        drawables[15] = R.drawable.ic_messenger;
+        drawables[16] = R.drawable.ic_periscope;
+        drawables[17] = R.drawable.ic_pinterest;
+        drawables[18] = R.drawable.ic_android;
+        drawables[19] = R.drawable.ic_instagram;
+        drawables[20] = R.drawable.ic_facebook;
+        drawables[21] = R.drawable.ic_skype;
+        drawables[22] = R.drawable.ic_snapchat;
+        drawables[23] = R.drawable.ic_telegram;
+        drawables[24] = R.drawable.ic_github;
+        drawables[25] = R.drawable.ic_flickr;
+        drawables[26] = R.drawable.ic_linkedin;
+        drawables[27] = R.drawable.ic_twitter;
+        drawables[28] = R.drawable.ic_amazon;
+        drawables[29] = R.drawable.ic_drive;
+        drawables[30] = R.drawable.ic_evernote;
+        drawables[31] = R.drawable.ic_google_hangouts_logo;
+        drawables[32] = R.drawable.ic_lastfm;
+        drawables[33] = R.drawable.ic_messenger;
+        drawables[34] = R.drawable.ic_periscope;
+        drawables[35] = R.drawable.ic_pinterest;
+
+        //shuffle();
     }
 
     public void shuffle(){
@@ -204,6 +227,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         outstate.putInt("attempts", intents);
         outstate.putInt("pairs",pairs);
         outstate.putString("intents", attempts.getText().toString());
+        outstate.putInt("progressbar", progressbar.getProgress());
     }
 
     @Override
@@ -211,12 +235,16 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         super.onSaveInstanceState(outstate);
         isFirst = outstate.getBoolean("isFirst");
         isVisible = outstate.getBooleanArray("isvisible");
-//        progressbar.setProgress(outstate.getInt("progressbar"));
         intents = outstate.getInt("attempts");
         card1 = outstate.getInt("card1");
         card2 = outstate.getInt("card2");
         pairs = outstate.getInt("pairs");
         attempts.setText(outstate.getString("intents"));
+        progressbar.setProgress(outstate.getInt("progressbar"));
+
+        for (int i = 0; i < drawables.length; ++i) {
+            if (isVisible[i]) iv[i].setImageDrawable(getResources().getDrawable(drawables[i]));
+        }
     }
 
     public void action(View view, int i) {
@@ -243,6 +271,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
                         if ((pairs += 1) == drawables.length / 2) {
                             win(intents);
                         }
+                        progressbar.setProgress(intents);
                         mustWait = false;
                     } else {
                         new Handler().postDelayed(new Runnable() {
@@ -252,6 +281,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
                                 flipper(view1, card2);
                                 Log.d("YEAH", "action: OHNOOO");
                                 mustWait = false;
+                                progressbar.setProgress(intents);
                             }
                         }, 2000);
 
@@ -282,7 +312,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         int better = loginHelper.getBetter6(username);
 
         if (intents < better || better == 0) {
-            loginHelper.setScore4(username, intents);
+            loginHelper.setScore6(username, intents);
             builder.setMessage("Can you do ir better?");
             builder.setTitle("OH MY GAT");
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -331,6 +361,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         for (int i = 0; i < drawables.length; i++) {
             flipper.flipImage(backside, (ImageView) view[i]);
         }
+        progressbar.setProgress(0);
         isFirst=true;
         intents=0;
         attempts.setText("0");
@@ -339,9 +370,6 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         card2=0;
 
         shuffle();
-
-
-
     }
 
     @Override
@@ -490,20 +518,76 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
             case R.id.imageView45:
                 action(view,35);
                 break;
+
+        }
+        if (progressbar.getProgress() == progressbar.getMax()){
+            looser();
         }
     }
 
-    /*@OnClick({R.id.imageView0,R.id.imageView1,R.id.imageView2,R.id.imageView3,R.id.imageView4,R.id.imageView5,R.id.imageView8,R.id.imageView9
-            ,R.id.imageView10,R.id.imageView11,R.id.imageView12,R.id.imageView13,R.id.imageView16,R.id.imageView17,R.id.imageView18,R.id.imageView19
-            ,R.id.imageView20,R.id.imageView21,R.id.imageView24,R.id.imageView25,R.id.imageView26,R.id.imageView27,R.id.imageView28,R.id.imageView29,
-            R.id.imageView32,R.id.imageView33,R.id.imageView34,R.id.imageView35,R.id.imageView36,R.id.imageView37,R.id.imageView40,R.id.imageView41,R.id.imageView42,
-            R.id.imageView43,R.id.imageView44,R.id.imageView45})
-    public void on_click(View view){
+    public void looser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Memory6.this);
 
-    }*/
+        builder.setMessage("LOOSER");
+        builder.setPositiveButton("try again", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int witch) {
+                reload(iv);
 
+            }
+        });
+        builder.setNegativeButton("Bye", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int witch) {
+                startActivity(new Intent(getApplicationContext(), EvilMemory.class));
+                finish();
+            }
+        });
 
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
+    public void setPremiumCards() {
+
+        drawables[0] = R.drawable.barca;
+        drawables[1] = R.drawable.atmadrid;
+        drawables[2] = R.drawable.madrid;
+        drawables[3] = R.drawable.arsenal;
+        drawables[4] = R.drawable.liverpool;
+        drawables[5] = R.drawable.chelsea;
+        drawables[6] = R.drawable.juve;
+        drawables[7] = R.drawable.tits;
+        drawables[8] = R.drawable.villareal;
+        drawables[9] = R.drawable.santcu;
+        drawables[10] = R.drawable.galatasaray;
+        drawables[11] = R.drawable.celtic;
+        drawables[12] = R.drawable.ajax;
+        drawables[13] = R.drawable.psg;
+        drawables[14] = R.drawable.monaco;
+        drawables[15] = R.drawable.bayernmun;
+        drawables[16] = R.drawable.borussia;
+        drawables[17] = R.drawable.everton;
+        drawables[18] = R.drawable.barca;
+        drawables[19] = R.drawable.atmadrid;
+        drawables[20] = R.drawable.madrid;
+        drawables[21] = R.drawable.arsenal;
+        drawables[22] = R.drawable.liverpool;
+        drawables[23] = R.drawable.chelsea;
+        drawables[24] = R.drawable.juve;
+        drawables[25] = R.drawable.tits;
+        drawables[26] = R.drawable.villareal;
+        drawables[27] = R.drawable.santcu;
+        drawables[28] = R.drawable.galatasaray;
+        drawables[29] = R.drawable.celtic;
+        drawables[30] = R.drawable.ajax;
+        drawables[31] = R.drawable.psg;
+        drawables[32] = R.drawable.monaco;
+        drawables[33] = R.drawable.bayernmun;
+        drawables[34] = R.drawable.borussia;
+        drawables[35] = R.drawable.everton;
+        //shuffle();
+    }
 
 }
 

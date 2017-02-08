@@ -2,6 +2,8 @@ package com.code.albert.evilmemory.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.code.albert.evilmemory.R;
+import com.code.albert.evilmemory.activities.Ranking;
 import com.code.albert.evilmemory.adapter.MyCustomAdapter;
 import com.code.albert.evilmemory.adapter.RankingPlayer;
 import com.code.albert.evilmemory.data.LoginHelper;
@@ -38,6 +41,9 @@ public class Ranking4 extends Fragment implements View.OnClickListener{
     LoginHelper loginHelper;
 
     int i=0;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public Ranking4() {
         // Required empty public constructor
@@ -68,33 +74,10 @@ public class Ranking4 extends Fragment implements View.OnClickListener{
         delete=(Button) view.findViewById(R.id.button);
         delete.setOnClickListener(this);
 
-        //delete.setOnClickListener(new View.OnClickListener() {
-            /*@Override
-            public void onClick(View v) {
-                LoginHelper LoginHelper = new LoginHelper(getActivity().getApplicationContext());
-                LoginHelper.DeleteRanking4();
-                Cursor cursor = loginHelper.getRanking4();
-                RankingPlayer pos;
-                if (cursor.moveToFirst()) {
-                    do {
-                        String u = cursor.getString(cursor.getColumnIndex("name"));
-                        int p = cursor.getInt(cursor.getColumnIndex("score4"));
-                        pos = new RankingPlayer(0, u, p);
-                        rankingPlayers.add(pos);
-                    } while (cursor.moveToNext());
-                }
-
-                myAdapter.setData(rankingPlayers);
-                myAdapter.notifyDataSetChanged();
-
-                final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.detach(Ranking4.this);
-                ft.attach(Ranking4.this);
-                ft.commit();
-
-            }*/
-
-       // });
+        sharedPreferences = getActivity().getSharedPreferences("myApp", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putInt("activity",4);
+        editor.apply();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.mRecyclerView);
 
@@ -128,10 +111,13 @@ public class Ranking4 extends Fragment implements View.OnClickListener{
             myAdapter.setData(rankingPlayers);
             myAdapter.notifyDataSetChanged();
 
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            startActivity(new Intent(getActivity().getApplicationContext(), Ranking.class));
+            getActivity().finish();
+
+            /*FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.detach(this);
             ft.attach(this);
-            ft.commit();
+            ft.commit();*/
 
 
         }else{

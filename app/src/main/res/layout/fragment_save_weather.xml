@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.code.albert.evilmemory.fragments.SaveWeather"
+    android:background="@mipmap/paisaje3">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center|top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Location1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|top"
+            android:text="Insert coordinates"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Latitude"
+            android:id="@+id/edit_text1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Length"
+            android:id="@+id/edit_text2"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Enter location"
+            android:background="@drawable/animation_list_2"
+            android:id="@+id/button_enter"/>
+        <TextView
+            android:id="@+id/mintemp1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|top"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/maxtemp1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|top"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/weather1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"/>
+
+
+    <TextView
+        android:id="@+id/temp1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="450dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="50dp"
+        android:textColor="#f49542"
+        />
+</FrameLayout>

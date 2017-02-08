@@ -1,5 +1,7 @@
 package com.code.albert.evilmemory.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,6 +21,8 @@ import java.util.List;
 public class Ranking extends NavigationDrawer{
 
     BottomNavigationView bottomNavigationItemView;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +31,34 @@ public class Ranking extends NavigationDrawer{
         bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationItemView.getMenu().getItem(0).setChecked(true);
 
-        //Load fragment for first time
-        Fragment f = new Ranking4();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.ranking_container, f, "FRAGMENt")
-                .commit();
+        sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        int i = sharedPreferences.getInt("activity", 4);
+
+        if(i==4) {
+            Fragment f = new Ranking4();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.ranking_container, f, "FRAGMENt")
+                    .commit();
+        }else{
+            if (i==6){
+                Fragment f = new Ranking6();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.ranking_container, f, "FRAGMENt")
+                        .commit();
+            }else {
+                if(i==8){
+                    Fragment f = new Ranking8();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.ranking_container, f, "FRAGMENt")
+                            .commit();
+                }
+            }
+        }
 
 
 

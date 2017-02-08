@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.code.albert.evilmemory.R;
+import com.code.albert.evilmemory.activities.Calculator;
 import com.code.albert.evilmemory.activities.Login;
 
 import butterknife.BindView;
@@ -26,7 +27,7 @@ public class ImgActivity extends AppCompatActivity {
 
     @OnClick(R.id.retry)
     public void retry(){
-        startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), Calculator.class));
     }
 
     @Override

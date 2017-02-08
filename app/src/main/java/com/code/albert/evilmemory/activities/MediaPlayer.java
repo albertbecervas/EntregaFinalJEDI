@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,7 +26,7 @@ import com.code.albert.evilmemory.service.BoundService;
 
 public class MediaPlayer extends NavigationDrawer {
 
-    ImageView play, stop, next, previous;
+    ImageView play, stop;
     Button selectSong;
     SeekBar volume;
     AudioManager audioManager;
@@ -37,6 +39,9 @@ public class MediaPlayer extends NavigationDrawer {
     BoundService bService;
     boolean bound = false;
     Intent intent;
+
+    LinearLayout container;
+    AnimationDrawable anim;
 
     private ServiceConnection connection = new ServiceConnection(){
         @Override
@@ -61,14 +66,13 @@ public class MediaPlayer extends NavigationDrawer {
 
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
+        startAnimation();
+
         play = (ImageView) findViewById(R.id.imageButton);
         play.setOnClickListener(listener);
 
         stop = (ImageView) findViewById(R.id.imageButtonStop);
         stop.setOnClickListener(listener);
-
-        next = (ImageView) findViewById(R.id.next);
-        next.setOnClickListener(listener);
 
         selectSong = (Button) findViewById(R.id.selectSong);
         selectSong.setOnClickListener(listener);
@@ -92,6 +96,14 @@ public class MediaPlayer extends NavigationDrawer {
         Volume();
 
 
+    }
+
+    public void startAnimation(){
+        container = (LinearLayout) findViewById(R.id.activity_login);
+        anim= (AnimationDrawable) container.getBackground();
+        anim.setEnterFadeDuration(1000);
+        anim.setExitFadeDuration(2000);
+        anim.start();
     }
 
 
@@ -178,12 +190,6 @@ public class MediaPlayer extends NavigationDrawer {
                     play.setImageResource(R.drawable.ic_playstation_logo);
                     set=true;
                     break;
-                case R.id.next:
-                    bService.playNext();
-                    song.setText(bService.s);
-                    break;
-
-
             }
 
         }

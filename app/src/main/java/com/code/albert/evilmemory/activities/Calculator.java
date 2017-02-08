@@ -34,6 +34,9 @@ public class Calculator extends NavigationDrawer {
 
     String symbol;
 
+    Boolean secondNumber=false;
+    Boolean ans=false;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -106,33 +109,93 @@ public class Calculator extends NavigationDrawer {
         switch (v.getId()) {
             case R.id.button_0:
                 x = x * 10 + 0;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }
+                operands.setText(String.valueOf(x));
+
                 break;
             case R.id.button_1:
                 x = x * 10 + 1;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_2:
                 x = x * 10 + 2;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_3:
                 x = x * 10 + 3;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_4:
                 x = x * 10 + 4;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_5:
                 x = x * 10 + 5;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_6:
                 x = x * 10 + 6;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_7:
                 x = x * 10 + 7;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_8:
                 x = x * 10 + 8;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_9:
                 x = x * 10 + 9;
+                if(secondNumber){
+                    String operacio= operands.getText().toString();
+                    operands.setText(String.valueOf(operacio + x));
+                }else {
+                    operands.setText(String.valueOf(x));
+                }
                 break;
             case R.id.button_equal:
                 b = x;
@@ -197,6 +260,10 @@ public class Calculator extends NavigationDrawer {
                 result.setText(String.valueOf(res));
                 break;
             case R.id.button_coma:
+                ans=true;
+                x=res;
+                secondNumber=true;
+                operands.setText(String.valueOf(x));
                 break;
             case R.id.button_CE:
 
@@ -205,33 +272,41 @@ public class Calculator extends NavigationDrawer {
                 b = 0;
                 res = 0;
                 result.setText(null);
+                operands.setText(null);
                 break;
             case R.id.button_suma:
 
                 a = x;
                 x = 0;
                 symbol = "+";
+                secondNumber=true;
+                operands.setText(String.valueOf(a + symbol));
                 break;
             case R.id.button_resta:
 
                 a = x;
                 x = 0;
                 symbol = "-";
+                secondNumber=true;
+                operands.setText(String.valueOf(a + symbol));
                 break;
             case R.id.button_prod:
 
                 a = x;
                 x = 0;
                 symbol = "*";
+                secondNumber=true;
+                operands.setText(String.valueOf(a + symbol));
                 break;
             case R.id.button_div:
                 a = x;
                 x = 0;
                 symbol = "/";
+                secondNumber=true;
+                operands.setText(String.valueOf(a + symbol));
                 break;
 
         }
-        operands.setText(String.valueOf(x));
     }
 
     @Override

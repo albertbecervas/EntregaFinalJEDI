@@ -61,8 +61,6 @@ public class Profile extends Fragment {
 
     AnimationDrawable anim;
 
-    //OnFragmentInteractionListener mListener;
-
     public Profile() {
         // Required empty public constructor
     }
@@ -105,20 +103,11 @@ public class Profile extends Fragment {
         maxscore8.setText(score8);
 
         anim= (AnimationDrawable) view.getBackground();
-        anim.setEnterFadeDuration(1000);
-        anim.setExitFadeDuration(2000);
+        anim.setEnterFadeDuration(10);
+        anim.setExitFadeDuration(10);
         anim.start();
 
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    0);
-
-        }*/
-
-        String s = settings.getString("s", "jvkbn");
+        String s = settings.getString("s", "nophoto");
         Log.d("URI", "onCreate: " + s);
         Uri myUri = Uri.parse(s);
         try {

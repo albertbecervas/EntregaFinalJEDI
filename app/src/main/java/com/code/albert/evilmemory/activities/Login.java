@@ -82,9 +82,8 @@ public class Login extends AppCompatActivity{
                 Log.d("username", "success: "+session.getUserName());
                 String username = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
                 ContentValues valuesToStore = new ContentValues();
-                valuesToStore.put("name", String.valueOf(session.getUserName()));
-                valuesToStore.put("password", String.valueOf("changepass"));
-                valuesToStore.put("completename", String.valueOf(session.getUserName()));
+                valuesToStore.put("name", String.valueOf(name));
+                valuesToStore.put("completename", String.valueOf(name));
 
                 editor.putBoolean("UserLoggedIn", true);
                 editor.putBoolean("keepin",true);
@@ -168,7 +167,7 @@ public class Login extends AppCompatActivity{
 
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(this).
-                                setMessage("").
+                                setMessage("Loggin Failure").
                                 setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -176,10 +175,18 @@ public class Login extends AppCompatActivity{
                                         fails++;
                                     }
                                 });
-                if(fails>1) builder.setView(image);
+                if(fails>1) {builder.setView(image);
+                builder.setMessage("You are NOT welcome").
+                    setPositiveButton("Please forgive me!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    fails++;
+                                }});
                 builder.create().show();
             }
         }
+    }
     }
 
     public void goToSignin(View v){

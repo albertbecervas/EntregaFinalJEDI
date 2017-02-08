@@ -7,7 +7,7 @@
         android:duration="5000"/>
     <item
         android:drawable="@drawable/color1_1"
-        android:duration="2000"/>
+        android:duration="4000"/>
 
 
 </animation-list>

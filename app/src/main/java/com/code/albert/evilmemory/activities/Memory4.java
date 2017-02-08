@@ -59,6 +59,8 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
 
     ProgressBar progressbar;
 
+    int setLevel,max;
+
     @BindDrawable(R.drawable.ic_fast_forward_black_24dp) Drawable backside;
     @BindView(R.id.intents) TextView attempts;
 
@@ -76,12 +78,28 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
 
         sharedPreferences = getSharedPreferences("myApp", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        Boolean premium=sharedPreferences.getBoolean("Premium package", false);
+        setLevel=sharedPreferences.getInt("Level", 1);
+        if(setLevel==1) max=40;
+        if(setLevel==2) max=30;
+        if(setLevel==3) max=20;
 
-        setCards();
+
+
+
+
+        progressbar = (ProgressBar) findViewById(R.id.progressBarIntents);
+        progressbar.setMax(max);
+        progressbar.setProgress(intents);
+        setImagesView();
+        if(!premium) {
+            setCards();
+        }else{
+            setPremiumCards();
+        }
     }
 
-    public void setCards() {
-
+    public void setImagesView(){
         iv[0] = (ImageView) findViewById(R.id.imageView0);
         iv[1] = (ImageView) findViewById(R.id.imageView1);
         iv[2] = (ImageView) findViewById(R.id.imageView2);
@@ -100,8 +118,6 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         iv[15] = (ImageView) findViewById(R.id.imageView27);
         reload=(ImageView) findViewById(R.id.reload);
 
-
-
         iv[0] .setOnClickListener(this);
         iv[1] .setOnClickListener(this);
         iv[2] .setOnClickListener(this);
@@ -119,24 +135,25 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         iv[14].setOnClickListener(this);
         iv[15].setOnClickListener(this);
         reload.setOnClickListener(this);
+    }
 
-
+    public void setCards() {
         drawables[0] = R.drawable.ic_android;
         drawables[1] = R.drawable.ic_instagram;
         drawables[2] = R.drawable.ic_facebook;
         drawables[3] = R.drawable.ic_skype;
         drawables[4] = R.drawable.ic_snapchat;
         drawables[5] = R.drawable.ic_telegram;
-        drawables[6] = R.drawable.ic_linkedin;
-        drawables[7] = R.drawable.ic_twitter;
+        drawables[6] = R.drawable.ic_github;
+        drawables[7] = R.drawable.ic_flickr;
         drawables[8] = R.drawable.ic_android;
         drawables[9] = R.drawable.ic_instagram;
         drawables[10] = R.drawable.ic_facebook;
         drawables[11] = R.drawable.ic_skype;
         drawables[12] = R.drawable.ic_snapchat;
         drawables[13] = R.drawable.ic_telegram;
-        drawables[14] = R.drawable.ic_linkedin;
-        drawables[15] = R.drawable.ic_twitter;
+        drawables[14] = R.drawable.ic_github;
+        drawables[15] = R.drawable.ic_flickr;
         //shuffle();
     }
 
@@ -156,6 +173,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         outstate.putInt("attempts", intents);
         outstate.putInt("pairs",pairs);
         outstate.putString("intents", attempts.getText().toString());
+        outstate.putInt("progressbar", progressbar.getProgress());
     }
 
     @Override
@@ -163,12 +181,16 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         super.onSaveInstanceState(outstate);
         isFirst = outstate.getBoolean("isFirst");
         isVisible = outstate.getBooleanArray("isvisible");
-//        progressbar.setProgress(outstate.getInt("progressbar"));
         intents = outstate.getInt("attempts");
         card1 = outstate.getInt("card1");
         card2 = outstate.getInt("card2");
         pairs = outstate.getInt("pairs");
         attempts.setText(outstate.getString("intents"));
+        progressbar.setProgress(outstate.getInt("progressbar"));
+
+        for (int i = 0; i < drawables.length; ++i) {
+            if (isVisible[i]) iv[i].setImageDrawable(getResources().getDrawable(drawables[i]));
+        }
     }
 
     public void action(View view, int i) {
@@ -192,6 +214,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
                         if ((pairs += 1) == drawables.length / 2) {
                             win(intents);
                         }
+                        progressbar.setProgress(intents);
                         mustWait = false;
                     } else {
                         new Handler().postDelayed(new Runnable() {
@@ -201,6 +224,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
                                 flipper(view1, card2);
                                 Log.d("YEAH", "action: OHNOOO");
                                 mustWait = false;
+                                progressbar.setProgress(intents);
                             }
                         }, 2000);
                     }
@@ -278,6 +302,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         for (int i = 0; i < drawables.length; i++) {
             flipper.flipImage(backside, (ImageView) view[i]);
         }
+        progressbar.setProgress(0);
         isFirst=true;
         intents=0;
         attempts.setText("0");
@@ -363,81 +388,54 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
 
+        if (progressbar.getProgress() == progressbar.getMax()){
+            looser();
+        }
+
     }
 
+    public void looser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Memory4.this);
 
-    /*this({imageView0,R.id.imageView1,R.id.imageView2,R.id.imageView3,R.id.imageView8,R.id.imageView9
-            ,R.id.imageView10,R.id.imageView11,R.id.imageView16,R.id.imageView17,R.id.imageView18,R.id.imageView19
-            ,R.id.imageView24,R.id.imageView25,R.id.imageView26,R.id.imageView27,R.id.reload})
-    public void on_click(View view){
-        switch (view.getId()){
-            case imageView0:
-                action(view,0);
-                break;
+            builder.setMessage("LOOSER");
+            builder.setPositiveButton("try again", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int witch) {
+                    reload(iv);
 
-            case R.id.imageView1:
-                action(view,1);
-                break;
+                }
+            });
+            builder.setNegativeButton("Bye", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int witch) {
+                    startActivity(new Intent(getApplicationContext(), EvilMemory.class));
+                    finish();
+                }
+            });
 
-            case R.id.imageView2:
-                action(view,2);
-                break;
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
-            case R.id.imageView3:
-                action(view,3);
-                break;
+    public void setPremiumCards() {
 
-            case R.id.imageView8:
-                action(view,4);
-                break;
-
-            case R.id.imageView9:
-                action(view,5);
-                break;
-
-            case R.id.imageView10:
-                action(view,6);
-                break;
-
-            case R.id.imageView11:
-                action(view,7);
-                break;
-
-            case R.id.imageView16:
-                action(view,8);
-                break;
-
-            case R.id.imageView17:
-                action(view,9);
-                break;
-
-            case R.id.imageView18:
-                action(view,10);
-                break;
-
-            case R.id.imageView19:
-                action(view,11);
-                break;
-
-            case R.id.imageView24:
-                action(view,12);
-                break;
-
-            case R.id.imageView25:
-                action(view,13);
-                break;
-
-            case R.id.imageView26:
-                action(view,14);
-                break;
-
-            case R.id.imageView27:
-                action(view,15);
-                break;
-
-            case R.id.reload:
-                reload(view);
-        }
+        drawables[0] = R.drawable.barca;
+        drawables[1] = R.drawable.atmadrid;
+        drawables[2] = R.drawable.madrid;
+        drawables[3] = R.drawable.arsenal;
+        drawables[4] = R.drawable.liverpool;
+        drawables[5] = R.drawable.chelsea;
+        drawables[6] = R.drawable.juve;
+        drawables[7] = R.drawable.tits;
+        drawables[8] = R.drawable.barca;
+        drawables[9] = R.drawable.atmadrid;
+        drawables[10] = R.drawable.madrid;
+        drawables[11] = R.drawable.arsenal;
+        drawables[12] = R.drawable.liverpool;
+        drawables[13] = R.drawable.chelsea;
+        drawables[14] = R.drawable.juve;
+        drawables[15] = R.drawable.tits;
+        //shuffle();
     }
 
     // public void action(View view, ViewGroup linearLayout) {

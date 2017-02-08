@@ -33,11 +33,4 @@ public class WeatherMainData {
     public String getTemp_max() {
         return temp_max;
     }
-
-    /*@Override
-    public String toString() {
-        Log.d("temp", "toString: "+temp + "\n" + pressure + "\n" + humidity + "\n" + temp_min + "\n" + temp_max);
-
-        return temp + "\n" + pressure + "\n" + humidity + "\n" + temp_min + "\n" + temp_max;
-    }*/
 }

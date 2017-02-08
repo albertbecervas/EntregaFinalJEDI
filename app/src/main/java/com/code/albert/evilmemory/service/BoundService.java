@@ -29,6 +29,7 @@ public class BoundService extends Service {
     private IBinder binder = new MyBinder();
     MediaPlayer mediaPlayer;
     Uri songURI;
+    Uri next;
     public String s;
 
 
@@ -56,7 +57,7 @@ public class BoundService extends Service {
             }
         });
 
-        songURI = Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/starwars");
+        songURI = Uri.parse("android.resource://com.code.albert.evilmemory/raw/madness");
 
         try {
             //  String s= getPackageName();
@@ -121,28 +122,6 @@ public class BoundService extends Service {
             mediaPlayer.setDataSource(this, data.getData());
             mediaPlayer.prepare();
             mediaPlayer.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void playNext() {
-        try {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/starwars"));
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-            int pos;
-            songURI = Uri.parse("android.resource://com.evilmem.albert.evilmemory/raw/starwars");
-            s = songURI.toString();
-            s = s.trim();
-            pos = s.lastIndexOf("/");
-            if (pos != -1) {
-                s = s.substring(pos + 1);
-            }
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-            Log.d("uri", "playSong: " + s);
         } catch (Exception e) {
             e.printStackTrace();
         }

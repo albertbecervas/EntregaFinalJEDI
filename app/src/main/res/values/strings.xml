@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EvilMemory</string>
+    <string name="app_name">Evil Memory</string>
 
     <string name="toast_notifications">Enable Toast Notifications</string>
     <string name="state_notifications">Enable State Notifications</string>

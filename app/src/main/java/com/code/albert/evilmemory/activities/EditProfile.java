@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,9 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
     LoginHelper loginHelper;
 
     Uri selectedImage;
+
+    LinearLayout container;
+    AnimationDrawable anim;
 
     BoundService bService;
     boolean bound = false;
@@ -93,6 +98,16 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         editor = sharedPreferences.edit();
 
         loginHelper = new LoginHelper(getApplicationContext());
+
+        startAnimation();
+    }
+
+    public void startAnimation(){
+        container = (LinearLayout) findViewById(R.id.activity_login);
+        anim= (AnimationDrawable) container.getBackground();
+        anim.setEnterFadeDuration(1000);
+        anim.setExitFadeDuration(2000);
+        anim.start();
     }
 
     @OnClick({R.id.modify, R.id.fab, R.id.fabaddress})
@@ -133,8 +148,6 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-
-
     public void saveChanges() {
         String cname = String.valueOf(name.getText());
         String pass = String.valueOf(password.getText());
@@ -152,12 +165,7 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
 
         Toast.makeText(getApplicationContext(), "User settings modified" + name.getText(), Toast.LENGTH_LONG).show();
 
-        startActivity(new Intent(getApplicationContext(), NavigationDrawer.class));
-        /*Fragment f = new Profile();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_layout_base, f, "Profile")
-                .commit();*/
+        startActivity(new Intent(getApplicationContext(), EvilMemory.class));
     }
 
     @Override
