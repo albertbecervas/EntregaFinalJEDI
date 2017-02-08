@@ -40,9 +40,6 @@ public class MediaPlayer extends NavigationDrawer {
     boolean bound = false;
     Intent intent;
 
-    LinearLayout container;
-    AnimationDrawable anim;
-
     private ServiceConnection connection = new ServiceConnection(){
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -65,8 +62,6 @@ public class MediaPlayer extends NavigationDrawer {
         intent = new Intent(MediaPlayer.this, BoundService.class);
 
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
-
-        startAnimation();
 
         play = (ImageView) findViewById(R.id.imageButton);
         play.setOnClickListener(listener);
@@ -97,15 +92,6 @@ public class MediaPlayer extends NavigationDrawer {
 
 
     }
-
-    public void startAnimation(){
-        container = (LinearLayout) findViewById(R.id.activity_login);
-        anim= (AnimationDrawable) container.getBackground();
-        anim.setEnterFadeDuration(1000);
-        anim.setExitFadeDuration(2000);
-        anim.start();
-    }
-
 
     private void Volume() {
 

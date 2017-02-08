@@ -294,7 +294,7 @@ public class Memory8 extends AppCompatActivity implements View.OnClickListener{
         drawables[62] = R.drawable.ic_vimeo;
         drawables[63] = R.drawable.ic_youtube;
 
-        //shuffle();
+        shuffle();
     }
 
     public void shuffle(){
@@ -715,6 +715,11 @@ public class Memory8 extends AppCompatActivity implements View.OnClickListener{
                 case R.id.imageView63:
                     action(view, 63);
                     break;
+
+                case R.id.refresh:
+                    reload(iv);
+                    break;
+
             }
         if (progressbar.getProgress() == progressbar.getMax()){
             looser();
@@ -809,6 +814,7 @@ public class Memory8 extends AppCompatActivity implements View.OnClickListener{
         drawables[61] = R.drawable.roma;
         drawables[62] = R.drawable.westham;
         drawables[63] = R.drawable.zenit;
+        shuffle();
 
     }
 

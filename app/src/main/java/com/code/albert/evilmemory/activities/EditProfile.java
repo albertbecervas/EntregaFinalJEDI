@@ -144,6 +144,8 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
             GPSon=true;
             Toast.makeText(getApplicationContext(), "GPS on", Toast.LENGTH_SHORT).show();
         } else {
+            GPSon=false;
+            stopService(new Intent(EditProfile.this, BoundService.class));
             Toast.makeText(getApplicationContext(), "GPS off", Toast.LENGTH_SHORT).show();
         }
     }

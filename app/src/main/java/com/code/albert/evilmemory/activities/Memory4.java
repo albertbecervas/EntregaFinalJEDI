@@ -154,7 +154,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         drawables[13] = R.drawable.ic_telegram;
         drawables[14] = R.drawable.ic_github;
         drawables[15] = R.drawable.ic_flickr;
-        //shuffle();
+        shuffle();
     }
 
     public void shuffle(){
@@ -435,7 +435,7 @@ public class Memory4 extends AppCompatActivity implements View.OnClickListener{
         drawables[13] = R.drawable.chelsea;
         drawables[14] = R.drawable.juve;
         drawables[15] = R.drawable.tits;
-        //shuffle();
+        shuffle();
     }
 
     // public void action(View view, ViewGroup linearLayout) {

@@ -208,7 +208,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         drawables[34] = R.drawable.ic_periscope;
         drawables[35] = R.drawable.ic_pinterest;
 
-        //shuffle();
+        shuffle();
     }
 
     public void shuffle(){
@@ -519,6 +519,10 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
                 action(view,35);
                 break;
 
+            case R.id.refresh:
+                reload(iv);
+                break;
+
         }
         if (progressbar.getProgress() == progressbar.getMax()){
             looser();
@@ -586,7 +590,7 @@ public class Memory6 extends AppCompatActivity implements View.OnClickListener{
         drawables[33] = R.drawable.bayernmun;
         drawables[34] = R.drawable.borussia;
         drawables[35] = R.drawable.everton;
-        //shuffle();
+        shuffle();
     }
 
 }
