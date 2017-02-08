@@ -45,4 +45,9 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
    -Sign up:
     -Menú de registro de usuario con la opción de añadir una foto de perfil seleccionada del dispositivo. Si eres mrRobot no podrás acceder
      a la aplicación.
-   
+     
+   IMPORTANTE: según la versión de android, hay funcionalidades como la cámara que pueden no funcionar debido a un problema de permisos.
+              La versión que mejor funciona es la 6.0.1.
+              
+              
+ Agradecer el conocimiento impartido a Joan barroso y Marcos Pérez. 
