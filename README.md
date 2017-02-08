@@ -50,4 +50,6 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
               La versión que mejor funciona es la 6.0.1. La solución en caso de que se detenga la aplicación será reinstalar.
               
              
+             
+   
  Agradecer el conocimiento impartido a Joan barroso y Marcos Pérez. 
