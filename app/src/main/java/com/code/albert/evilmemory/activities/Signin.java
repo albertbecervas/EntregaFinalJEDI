@@ -120,7 +120,6 @@ public class Signin extends AppCompatActivity {
             password.setError("5 characters at least!");
             completename.setError("5 characters at least!");
         }
-        finish();
     }
 
     @OnClick(R.id.mrrobot)

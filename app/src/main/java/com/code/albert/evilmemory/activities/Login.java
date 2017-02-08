@@ -154,6 +154,7 @@ public class Login extends AppCompatActivity{
 
         if(!emptyFields){
             if(enteredPassword.equals(dbPassword)){
+                Log.d("login", "Login: ");
                 editor.putBoolean("UserLoggedIn", true);
                 editor.putString("username",name.getText().toString());
                 editor.apply();
@@ -175,16 +176,19 @@ public class Login extends AppCompatActivity{
                                         fails++;
                                     }
                                 });
-                if(fails>1) {builder.setView(image);
-                builder.setMessage("You are NOT welcome").
-                    setPositiveButton("Please forgive me!", new DialogInterface.OnClickListener() {
+                if(fails>1) {
+                    builder.setView(image);
+                    builder.setMessage("You are NOT welcome").
+                            setPositiveButton("Please forgive me!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     fails++;
-                                }});
+                                }
+                            });
+                }
                 builder.create().show();
-            }
+
         }
     }
     }

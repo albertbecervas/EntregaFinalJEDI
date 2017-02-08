@@ -110,7 +110,7 @@ public class Profile extends Fragment {
         anim.setExitFadeDuration(10);
         anim.start();
 
-        String s = settings.getString("s", "nophoto");
+        /*String s = settings.getString("s", "nophoto");
         Log.d("URI", "onCreate: " + s);
         if(s!="nophoto") {
             Uri myUri = Uri.parse(s);
@@ -121,7 +121,7 @@ public class Profile extends Fragment {
                 Log.d("error", "onCreate: " + s);
                 e.printStackTrace();
             }
-        }
+        }*/
 
         // Inflate the layout for this fragment
         return view;
