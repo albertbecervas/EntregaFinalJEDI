@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import com.code.albert.evilmemory.R;
 import com.code.albert.evilmemory.activities.EditProfile;
+import com.code.albert.evilmemory.activities.Login;
 import com.code.albert.evilmemory.data.LoginHelper;
 import com.code.albert.evilmemory.interfaces.OnFragmentInteractionListener;
 
@@ -109,13 +112,15 @@ public class Profile extends Fragment {
 
         String s = settings.getString("s", "nophoto");
         Log.d("URI", "onCreate: " + s);
-        Uri myUri = Uri.parse(s);
-        try {
-            Log.d("URI", "onCreate: " + s);
-            profile.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), myUri));
-        } catch (IOException e) {
-            Log.d("error", "onCreate: " + s);
-            e.printStackTrace();
+        if(s!="nophoto") {
+            Uri myUri = Uri.parse(s);
+            try {
+                Log.d("URI", "onCreate: " + s);
+                profile.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), myUri));
+            } catch (IOException e) {
+                Log.d("error", "onCreate: " + s);
+                e.printStackTrace();
+            }
         }
 
         // Inflate the layout for this fragment
@@ -126,6 +131,25 @@ public class Profile extends Fragment {
     public void editProfile(){
         startActivity(new Intent(getActivity().getApplicationContext(),EditProfile.class));
         getActivity().finish();
+    }
+
+    @OnClick(R.id.log_out)
+    public void logout(){
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("UserLoggedIn", false);
+                editor.putBoolean("keepin", false);
+                editor.apply();
+                Intent i = new Intent(getActivity().getApplicationContext(),Login.class);
+                startActivity(i);
+            }
+        };
+
+        Snackbar.make(getView(), R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                .setAction(R.string.snackbar_action, myOnClickListener)
+                .setActionTextColor(Color.RED)
+                .show(); // Importante!!! No olvidar mostrar la Snackbar.
     }
 
 

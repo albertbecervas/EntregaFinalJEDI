@@ -44,7 +44,7 @@
             android:noHistory="true" />
         <activity
             android:name=".activities.Signin"
-            android:noHistory="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EditProfile"

@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +25,11 @@ import android.widget.Toast;
 import com.code.albert.evilmemory.R;
 import com.code.albert.evilmemory.data.LoginHelper;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,37 +89,38 @@ public class Signin extends AppCompatActivity {
 
         if (name.length() > 3 && password.length() > 5 && completename.length() > 2) {
             if (!Robot) {
-                if (!cursor.moveToFirst()){
+                if (!cursor.moveToFirst()) {
 
-                        ContentValues valuesToStore = new ContentValues();
-                        valuesToStore.put("name", String.valueOf(name.getText()));
+                    ContentValues valuesToStore = new ContentValues();
+                    valuesToStore.put("name", String.valueOf(name.getText()));
 
-                        valuesToStore.put("password", String.valueOf(password.getText()));
-                        valuesToStore.put("completename", String.valueOf(completename.getText()));
+                    valuesToStore.put("password", String.valueOf(password.getText()));
+                    valuesToStore.put("completename", String.valueOf(completename.getText()));
 
-                        editor.putBoolean("UserLoggedIn", true);
-                        editor.putBoolean("keepin", true);
-                        editor.putString("username", name.getText().toString());
-                        editor.apply();
+                    editor.putBoolean("UserLoggedIn", true);
+                    editor.putBoolean("keepin", true);
+                    editor.putString("username", name.getText().toString());
+                    editor.apply();
 
-                        loginHelper.createUser(valuesToStore, "Users");
+                    loginHelper.createUser(valuesToStore, "Users");
 
-                        Toast.makeText(getApplicationContext(), "Welcome " + name.getText(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Welcome " + name.getText(), Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(getApplicationContext(), EvilMemory.class);
-                        startActivity(intent);
-                        this.finish();
-                }else {
+                    Intent intent = new Intent(getApplicationContext(), EvilMemory.class);
+                    startActivity(intent);
+                    this.finish();
+                } else {
                     Toast.makeText(getApplicationContext(), "Entered user already exists!!", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "get the fuck out MrRobot!", Toast.LENGTH_SHORT).show();
             }
-        } else{
+        } else {
             name.setError("5 characters at least!");
             password.setError("5 characters at least!");
             completename.setError("5 characters at least!");
         }
+        finish();
     }
 
     @OnClick(R.id.mrrobot)
