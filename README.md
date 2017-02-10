@@ -16,7 +16,7 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
     -En la pestaña de estiar perfil podremos seleccionar una imágen de perfil, seleccionar la localización mediante el uso del GPS,
      y cambiar credenciales como el nombre o la contraseña.
     -También se muestra un botón en rojo para salir de la cuenta.
-    
+    -La funcionalidad de mostrar la foto esta comentada por motivos de compatibilidad.
   -Ranking:
     -Se mostrará la mejor puntuación de cada usuario que haya participado en el juego memory y se dividirá también en los tres niveles del memory
   
@@ -48,7 +48,8 @@ Las funcionalidades desarrolladas en la aplicación son las siguientes:
      
    IMPORTANTE: según la versión de android, hay funcionalidades como la cámara que pueden no funcionar debido a un problema de permisos.
               La versión que mejor funciona es la 6.0.1. La solución en caso de que se detenga la aplicación será reinstalar.
-              
+              El apartado del tiempo tiene un problema con la versión citada anteriormente(6.0.1) y deberá ejectuarse con la versión 5.1.1
+              Disculpad las molestias
              
              
    
